@@ -137,7 +137,7 @@ ${adId || "Not found"}`;
       padding: "14px 18px",
       borderRadius: "14px",
       border: "none",
-      background: "linear-gradient(135deg, #0f172a, #1e293b)",
+      background: "linear-gradient(135deg, #611a24, #d3082a)",
       color: "#fff",
       fontSize: "14px",
       fontWeight: "700",

@@ -1,16 +1,17 @@
-# Tori Deal Hunter Copy
+# Tori Deal Hunter
 
-A lightweight Microsoft Edge / Chromium extension that extracts Tori.fi listing data and formats it for instant analysis with a custom Deal Hunter GPT.
+A Microsoft Edge / Chromium extension that extracts Tori.fi listing data and sends it directly to a custom Deal Hunter GPT for instant evaluation.
 
-This removes the friction of manually copying listing details and turns any Tori item into a structured input in one click.
+This removes the friction of manually copying listing details and turns any Tori item into a one-click AI-powered flipping analysis.
 
 ---
 
 ## ✨ Features
 
-- One-click **"Copy for Deal Hunter"** button on Tori listings
-- Extracts data even from **shadow DOM** (used by Tori)
-- Copies clean, structured text ready for GPT evaluation
+- One-click **🚀 Evaluate with Deal Hunter** button on Tori listings  
+- Automatically extracts listing data even from **shadow DOM**  
+- Opens your custom GPT and **auto-sends the prompt**  
+- No manual copy or paste required  
 - Works with:
   - title
   - price
@@ -19,8 +20,8 @@ This removes the friction of manually copying listing details and turns any Tori
   - shipping / ToriDiili info
   - description
   - seller
-  - metadata
-- Non-invasive, no scraping automation, no login required
+  - metadata  
+- Fast, minimal, and fully integrated into your browsing flow  
 
 ---
 
@@ -71,35 +72,29 @@ Viimeksi muokattu: 01.01.2026 ・ Ilmoituksen tunnus: 12345678
 
 ## 🧪 Usage
 
-1. Open any Tori item page, for example:  
-   `https://www.tori.fi/recommerce/forsale/item/*`
-
+1. Open any Tori item page  
 2. Click the floating button:  
-   `Copy for Deal Hunter`
 
-3. Paste into your custom GPT  
-4. Get instant deal evaluation  
+   `🚀 Evaluate with Deal Hunter`
+
+3. A new tab opens with your custom GPT  
+4. The listing is automatically inserted and sent  
+5. The evaluation appears instantly  
 
 ---
 
 ## 🛠️ How it works
 
-Tori renders listing content inside **shadow DOM**, which breaks normal query selectors.
+Tori renders listing content inside **shadow DOM**, which breaks normal DOM queries.
 
 This extension solves that by:
 
-- recursively traversing all shadow roots
-- extracting structured data via:
-  - `data-testid` attributes
-  - semantic selectors
-- falling back gracefully when needed
-
-Core helpers:
-
-```js
-findInAllShadows()
-queryAll()
-```
+- recursively traversing all shadow roots  
+- extracting structured data using stable selectors  
+- collecting all relevant listing fields  
+- storing the prompt temporarily in extension storage  
+- opening the custom GPT page  
+- injecting and sending the prompt automatically  
 
 ---
 
@@ -108,27 +103,15 @@ queryAll()
 - Vanilla JavaScript  
 - Chrome Extension Manifest v3  
 - Works in Edge and Chrome  
+- Uses content scripts for both Tori and ChatGPT  
 
 ---
 
 ## 🔒 Safety
 
 - No login access  
-- No automation of buying or messaging  
-- No scraping outside the browser context  
-- Fully compliant with normal browsing behavior  
-
----
-
-## 💡 Future ideas
-
-- Open ChatGPT automatically with prefilled prompt  
-- Add “Evaluate deal” button instead of copy  
-- Track viewed listings and decisions  
-- Auto price comparison / resale suggestions  
-
----
-
-## 👤 Author
-
-Built as part of a flipping workflow system for analyzing second-hand deals on Tori.fi.
+- No account automation on Tori  
+- No external scraping  
+- No API keys in the extension  
+- Uses only normal browser capabilities  
+```
