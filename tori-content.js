@@ -78,6 +78,13 @@
     return el ? el.getAttribute("data-decodedadid") : "";
   }
 
+  function buildChatTitle(title, price) {
+    const cleanTitle = title || "Tori listing";
+    const cleanPrice = price || "";
+
+    return `Evaluate: ${cleanTitle}${cleanPrice ? `, ${cleanPrice}` : ""}`;
+  }
+
   function buildOutput() {
     const title = findTitle();
     const price = findPrice();
@@ -88,8 +95,11 @@
     const seller = findSeller();
     const meta = findMeta();
     const adId = findAdId();
+    const chatTitle = buildChatTitle(title, price);
 
-    return `Please evaluate this Tori listing as a flipping deal.
+    return `${chatTitle}
+
+Please evaluate this Tori listing as a flipping deal.
 
 URL:
 ${window.location.href}
