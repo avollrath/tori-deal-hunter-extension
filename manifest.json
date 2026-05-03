@@ -1,13 +1,24 @@
 {
   "manifest_version": 3,
-  "name": "Tori Deal Hunter Copy",
-  "version": "1.0.0",
-  "description": "Copies Tori listing details in a clean format for Deal Hunter GPT.",
-  "permissions": ["clipboardWrite"],
+  "name": "Tori Deal Hunter",
+  "version": "1.1.0",
+  "description": "Extracts Tori.fi listing data and sends it to the Deal Hunter GPT.",
+  "permissions": ["storage", "clipboardWrite"],
+  "host_permissions": [
+    "https://www.tori.fi/*",
+    "https://chatgpt.com/*"
+  ],
   "content_scripts": [
     {
       "matches": ["https://www.tori.fi/recommerce/forsale/item/*"],
-      "js": ["content.js"]
+      "js": ["tori-content.js"],
+      "run_at": "document_idle",
+      "all_frames": true
+    },
+    {
+      "matches": ["https://chatgpt.com/*"],
+      "js": ["chatgpt-content.js"],
+      "run_at": "document_idle"
     }
   ]
 }

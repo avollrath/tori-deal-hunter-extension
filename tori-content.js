@@ -1,5 +1,7 @@
 (function () {
-  const BUTTON_ID = "deal-hunter-copy-button";
+  const BUTTON_ID = "deal-hunter-evaluate-button";
+  const CUSTOM_GPT_URL =
+    "https://chatgpt.com/g/g-69f6f772324881918d188e23520ee624-tori-deal-hunter";
 
   function clean(text = "") {
     return text.replace(/\u00a0/g, " ").replace(/\s+/g, " ").trim();
@@ -10,7 +12,6 @@
     if (direct) return direct;
 
     const all = root.querySelectorAll("*");
-
     for (const el of all) {
       if (el.shadowRoot) {
         const found = findInAllShadows(el.shadowRoot, selector);
@@ -88,17 +89,6 @@
     const meta = findMeta();
     const adId = findAdId();
 
-    console.log("=== Tori Deal Hunter ===");
-    console.log("Title:", title);
-    console.log("Price:", price);
-    console.log("Condition:", condition);
-    console.log("Location:", location);
-    console.log("Shipping:", shipping);
-    console.log("Description:", description);
-    console.log("Seller:", seller);
-    console.log("Meta:", meta);
-    console.log("Ad ID:", adId);
-
     return `Please evaluate this Tori listing as a flipping deal.
 
 URL:
@@ -132,74 +122,59 @@ Ad ID:
 ${adId || "Not found"}`;
   }
 
-  function showToast(message) {
-    document.querySelector("#deal-hunter-toast")?.remove();
-
-    const toast = document.createElement("div");
-    toast.id = "deal-hunter-toast";
-    toast.textContent = message;
-
-    Object.assign(toast.style, {
-      position: "fixed",
-      right: "20px",
-      bottom: "84px",
-      zIndex: "999999",
-      padding: "10px 14px",
-      borderRadius: "10px",
-      background: "#111",
-      color: "#fff",
-      fontSize: "13px",
-      fontWeight: "600",
-      boxShadow: "0 8px 24px rgba(0,0,0,.22)"
-    });
-
-    document.body.appendChild(toast);
-    setTimeout(() => toast.remove(), 1800);
-  }
-
   function createButton() {
     if (document.querySelector(`#${BUTTON_ID}`)) return;
 
     const button = document.createElement("button");
     button.id = BUTTON_ID;
-    button.textContent = "Copy for Deal Hunter";
+    button.textContent = "🚀 Evaluate with Deal Hunter";
 
     Object.assign(button.style, {
       position: "fixed",
       right: "20px",
       bottom: "20px",
       zIndex: "999999",
-      padding: "12px 16px",
-      borderRadius: "12px",
+      padding: "14px 18px",
+      borderRadius: "14px",
       border: "none",
-      background: "#F94F55",
+      background: "linear-gradient(135deg, #0f172a, #1e293b)",
       color: "#fff",
       fontSize: "14px",
       fontWeight: "700",
       cursor: "pointer",
-      boxShadow: "0 8px 24px rgba(0,0,0,0.2)"
+      boxShadow: "0 10px 30px rgba(0,0,0,0.25)",
+      transition: "all 0.2s ease"
+    });
+
+    button.addEventListener("mouseenter", () => {
+      button.style.transform = "translateY(-2px)";
+      button.style.boxShadow = "0 14px 40px rgba(0,0,0,0.3)";
+    });
+
+    button.addEventListener("mouseleave", () => {
+      button.style.transform = "translateY(0)";
+      button.style.boxShadow = "0 10px 30px rgba(0,0,0,0.25)";
     });
 
     button.addEventListener("click", async () => {
-      try {
-        const output = buildOutput();
-        await navigator.clipboard.writeText(output.trim());
+      const prompt = buildOutput();
 
-        button.textContent = "✅ Copied!";
-        showToast("✅ Copied listing for Deal Hunter GPT");
-      } catch (err) {
-        console.error("Clipboard write failed:", err);
-        button.textContent = "❌ Failed";
-        showToast("Copy failed, check console");
-      }
+      await chrome.storage.local.set({
+        dealHunterPrompt: prompt,
+        dealHunterCreatedAt: Date.now()
+      });
+
+      button.textContent = "🚀 Opening Deal Hunter...";
+
+      window.open(CUSTOM_GPT_URL, "_blank");
 
       setTimeout(() => {
-        button.textContent = "Copy for Deal Hunter";
-      }, 500);
+        button.textContent = "🚀 Evaluate with Deal Hunter";
+      }, 1600);
     });
 
     document.body.appendChild(button);
   }
 
-  setTimeout(createButton, 200);
+  setTimeout(createButton, 300);
 })();
