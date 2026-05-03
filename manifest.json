@@ -2,15 +2,12 @@
   "manifest_version": 3,
   "name": "Tori Deal Hunter Copy",
   "version": "1.0.0",
-  "description": "Copies Tori.fi listing details in a clean format for Deal Hunter GPT.",
+  "description": "Copies Tori listing details in a clean format for Deal Hunter GPT.",
   "permissions": ["clipboardWrite"],
   "content_scripts": [
     {
-      "matches": [
-        "https://www.tori.fi/recommerce/forsale/item/*"
-      ],
-      "js": ["content.js"],
-      "run_at": "document_idle"
+      "matches": ["https://www.tori.fi/recommerce/forsale/item/*"],
+      "js": ["content.js"]
     }
   ]
 }

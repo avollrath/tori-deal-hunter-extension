@@ -172,7 +172,7 @@ ${adId || "Not found"}`;
       padding: "12px 16px",
       borderRadius: "12px",
       border: "none",
-      background: "#111",
+      background: "#F94F55",
       color: "#fff",
       fontSize: "14px",
       fontWeight: "700",
@@ -186,7 +186,7 @@ ${adId || "Not found"}`;
         await navigator.clipboard.writeText(output.trim());
 
         button.textContent = "✅ Copied!";
-        showToast("Copied listing for Deal Hunter GPT");
+        showToast("✅ Copied listing for Deal Hunter GPT");
       } catch (err) {
         console.error("Clipboard write failed:", err);
         button.textContent = "❌ Failed";
